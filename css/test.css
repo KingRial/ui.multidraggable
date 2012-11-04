@@ -1,0 +1,17 @@
+#draggable{
+	border: 1px solid green;
+}
+
+#multidraggable{
+	border: 1px solid yellow;
+}
+
+#sortable{
+	border: 1px solid blue;
+}
+
+#droppable{
+	border: 1px solid blue;
+	height:62px;
+	width:100px;
+}

@@ -1,0 +1,90 @@
+<html>
+<head>
+	<title>jQuery UI Multidraggable</title>
+	<link href="./jquery.ui.multidraggable.css" rel="stylesheet" type="text/css">
+	<link href="./css/test.css" rel="stylesheet" type="text/css">
+	<script src="./libs/jquery.js" type="text/javascript"></script>
+	<script src="./libs/jquery-ui/ui/jquery.ui.core.js" type="text/javascript"></script>
+	<script src="./libs/jquery-ui/ui/jquery.ui.widget.js" type="text/javascript"></script>
+	<script src="./libs/jquery-ui/ui/jquery.ui.mouse.js" type="text/javascript"></script>
+	<script src="./libs/jquery-ui/ui/jquery.ui.draggable.js" type="text/javascript"></script>
+	<script src="./libs/jquery-ui/ui/jquery.ui.sortable.js" type="text/javascript"></script>
+	<script src="./libs/jquery-ui/ui/jquery.ui.droppable.js" type="text/javascript"></script>
+	<script src="./jquery.ui.multidraggable.js" type="text/javascript"></script>
+	<script>
+		$(document).ready(function(){
+			$('#draggable .element').draggable({
+				connectToSortable:'#sortable',
+				helper:'clone',
+				revert:true
+			});
+			$('#multidraggable .element').multidraggable({
+				connectToSortable:'#sortable',
+				helper:'clone',
+				revert:true
+			});
+			$('#sortable').sortable();
+			$('#droppable').droppable({
+				drop: function( event, ui ) {
+					$( this )
+						.addClass( "ui-state-highlight" )
+						.append(ui.draggable);
+					console.error('Droppping:%o',ui.draggable);
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<div>Draggable</div>
+				<div>
+					<ul id="draggable" >
+						<li class="element" >First 1</li>
+						<li class="element" >Second 1</li>
+						<li class="element" >Third 1</li>
+						<li class="element" >A1</li>
+						<li class="element" >B1</li>
+						<li class="element" >C1</li>
+						<li class="element" >D1</li>
+						<li class="element" >E1</li>
+					</ul>
+				</div>
+			</td>
+			<td>
+				<div>Multidraggable</div>
+				<div>
+					<ul id="multidraggable">
+						<li class="element" >First 2</li>
+						<li class="element" >Second 2</li>
+						<li class="element" >Third 2</li>
+						<li class="element" >A2</li>
+						<li class="element" >B2</li>
+						<li class="element" >C2</li>
+						<li class="element" >D2</li>
+						<li class="element" >E2</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div>Sortable</div>
+				<div>
+					<ul id="sortable" >
+						<li class="element" >Test 1</li>
+						<li class="element" >Test 2</li>
+						<li class="element" >Test 3</li>
+					</ul>
+				</div>
+			</td>
+			<td>
+				<div>Droppable</div>
+				<div id="droppable"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,7 @@
+.ui-multidraggable-element{
+	border: 1px solid red;
+}
+
+.ui-multidraggable-secondary {
+	border: 1px solid black;
+}
