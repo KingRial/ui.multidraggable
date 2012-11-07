@@ -104,7 +104,6 @@ $.widget("ui.droppable", {
 	},
 
 	_drop: function(event,custom) {
-
 		var draggable = custom || $.ui.ddmanager.current;
 		if (!draggable || (draggable.currentItem || draggable.element)[0] == this.element[0]) return false; // Bail if draggable and droppable are same element
 
@@ -214,14 +213,11 @@ $.ui.ddmanager = {
 
 	},
 	drop: function(draggable, event) {
-
 		var dropped = false;
 		$.each($.ui.ddmanager.droppables[draggable.options.scope] || [], function() {
-
 			if(!this.options) return;
 			if (!this.options.disabled && this.visible && $.ui.intersect(draggable, this, this.options.tolerance))
 				dropped = this._drop.call(this, event) || dropped;
-
 			if (!this.options.disabled && this.visible && this.accept.call(this.element[0],(draggable.currentItem || draggable.element))) {
 				this.isout = 1; this.isover = 0;
 				this._deactivate.call(this, event);

@@ -12,11 +12,12 @@ Dual licensed under the MIT or GPL Version 2 licenses.
 
 Notes
 -----
+I still have a lot to learn about jQuery UI; this is a mere hack which can be improved drastically. ;)
+Hope it cab be usefull!
 
 Improvements
 -----
-- Handle "sortable" correctly
-- Handle "drop" correctly
+- Handle "sortable" and "connectToSortable" correctly
 
 Change Log
 ----------

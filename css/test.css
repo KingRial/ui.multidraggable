@@ -1,3 +1,7 @@
+#title{
+	font-size:30px;
+}
+
 #draggable{
 	border: 1px solid green;
 }
@@ -12,6 +16,6 @@
 
 #droppable{
 	border: 1px solid blue;
-	height:62px;
+	height:120px;
 	width:100px;
 }

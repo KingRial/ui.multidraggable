@@ -34,12 +34,13 @@ $.widget("ui.multidraggable", $.ui.draggable, {
 	
 	_triggerOnSecondaryMDItems: function(sTrigger,aArguments){
 		this._getSecondaryMDItems().each(function(iIndex,oDomElement){
-			var _fWidget=$(oDomElement).data('multidraggable');
+			var _jObj=$(oDomElement);
+			var _fWidget=_jObj.data('multidraggable');
 			_fWidget[sTrigger].apply(_fWidget,aArguments);
 		});
 	},
 	
-	_isPrimaryMDItem: function(event){
+	_isPrimaryMDItem: function(){
 		return $(this.element).is(this._getPrimaryMDItem());
 	},
 	
@@ -57,9 +58,9 @@ $.widget("ui.multidraggable", $.ui.draggable, {
 		if(!this.element.hasClass('ui-multidraggable-element')){
 			var _jMDItems=this._getMDItems();
 			if(!event.ctrlKey){
-				_jMDItems.removeClass('ui-multidraggable-element ui-multidraggable-secondary');
+				this._getMDItems().removeClass('ui-multidraggable-element ui-multidraggable-secondary');
 			}
-			_jMDItems.addClass('ui-multidraggable-secondary');
+			this._getMDItems().addClass('ui-multidraggable-element ui-multidraggable-secondary');
 		}
 		else {
 			this._getPrimaryMDItem().addClass('ui-multidraggable-secondary');
@@ -70,19 +71,52 @@ $.widget("ui.multidraggable", $.ui.draggable, {
 	},
 
 	_mouseStart: function(event) {
-		if(this._isPrimaryMDItem(event))this._triggerOnSecondaryMDItems('_mouseStart',arguments);
+		if(!$.ui.ddmanager._multidraggable)$.ui.ddmanager._multidraggable=new Array();
+		$.ui.ddmanager._multidraggable.push(this.element);
+		
+		if(this._isPrimaryMDItem())this._triggerOnSecondaryMDItems('_mouseStart',arguments);
 		return this._superApply(arguments);
 	},
 
 	_mouseDrag: function(event, noPropagation) {
-		if(this._isPrimaryMDItem(event))this._triggerOnSecondaryMDItems('_mouseDrag',arguments);
+		if(this._isPrimaryMDItem())this._triggerOnSecondaryMDItems('_mouseDrag',arguments);
 		return this._superApply(arguments);
 	},
 
 	_mouseStop: function(event) {
-		if(this._isPrimaryMDItem(event))this._triggerOnSecondaryMDItems('_mouseStop',arguments);
+		if(this._isPrimaryMDItem())this._triggerOnSecondaryMDItems('_mouseStop',arguments);
 		return this._superApply(arguments);
 	}
+});
+
+//Droppable
+$.widget("ui.droppable", $.ui.droppable, {
+	_drop: function(event,custom) {
+		var _bResult=false;
+		var draggable = custom || $.ui.ddmanager.current;
+		if(draggable.element.data('multidraggable')){
+			draggable.element.removeClass('ui-multidraggable-element ui-multidraggable-secondary');
+			//draggable.element.multidraggable('destroy');
+			if(draggable.element.is(draggable._getPrimaryMDItem()))_bResult=this._superApply(arguments);
+			else{
+				if($.ui.ddmanager._multidraggable){
+					var _jElement=$.ui.ddmanager._multidraggable.pop();
+					//Faking dragged element
+					draggable.element =_jElement.removeClass('ui-multidraggable-element ui-multidraggable-secondary');
+					//draggable.element =_jElement.multidraggable('destroy');
+					
+					if(this.accept.call(this.element[0],(draggable.currentItem || draggable.element))) {
+						if(this.options.activeClass) this.element.removeClass(this.options.activeClass);
+						if(this.options.hoverClass) this.element.removeClass(this.options.hoverClass);
+						this._trigger('drop', event, this.ui(draggable));
+						return this.element;
+					}
+				}
+			}
+		}
+		else _bResult=this._superApply(arguments);
+		return _bResult;
+	},
 });
 
 })(jQuery);

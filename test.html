@@ -29,7 +29,7 @@
 					$( this )
 						.addClass( "ui-state-highlight" )
 						.append(ui.draggable);
-					console.error('Droppping:%o',ui.draggable);
+					console.error('Dropped:%o',ui.draggable);
 				}
 			});
 		});
@@ -37,6 +37,9 @@
 </head>
 <body>
 	<table>
+		<tr>
+			<td id="title" >jQuery UI Multidraggable v0.0.1</td>
+		</tr>
 		<tr>
 			<td>
 				<div>Draggable</div>
@@ -71,7 +74,7 @@
 		</tr>
 		<tr>
 			<td>
-				<div>Sortable</div>
+				<div>Sortable (Still not working correctly with multidraggable)</div>
 				<div>
 					<ul id="sortable" >
 						<li class="element" >Test 1</li>
