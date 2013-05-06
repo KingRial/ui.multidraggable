@@ -1,4 +1,4 @@
-jQuery UI Multidraggable v0.0.1
+jQuery UI Multidraggable v0.0.2
 =================
 "jQuery UI Multidraggable" is a jQuery Plugin to add multidraggable functionality to the jQuery UI.
 
@@ -21,5 +21,8 @@ Improvements
 
 Change Log
 ----------
+ * __0.0.2__
+  - Updated plugin to handle jQuery 2.0.0 and jQuery UI 1.10.3
+  - Tried some experimets with the sortable ( still no luck; I can't understand how to overwrite correctly the draggable beahviour on 'connectToSortable' event )
  * __0.0.1__
   - Commited on Git Hub first release
